@@ -98,7 +98,11 @@ class ExternalServiceController extends Controller
         $this->ExternalServiceRequest('delete',$url);
       
     }
-
+    /*
+    This function implements the real request to the external service.
+    In this case the communication could not be achieved - Message Connection Refused
+    If you want to test it with a real external service please remove the comments
+    */
     private function ExternalServiceRequest($request,$url,$body = null){
 
 
