@@ -24,6 +24,5 @@ Route::resource('articles', ArticlesController::class);
 
 Route::resource('articles.comments', CommentsController::class)->shallow();
 
-Route::get ('/externalService', [ExternalServiceController::class,'sendAll']);
 
   
