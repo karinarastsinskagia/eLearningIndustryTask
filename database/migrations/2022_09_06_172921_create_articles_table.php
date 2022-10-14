@@ -19,7 +19,8 @@ class CreateArticlesTable extends Migration
             $table->id();
             $table->string('title');
             $table->longText('content');
-            $table->string('category')->nullable();
+            $table->foreignId('user_id');
+            $table->foreignId('category_id')->nullable();
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
         });
     }

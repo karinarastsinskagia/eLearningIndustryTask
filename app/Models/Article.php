@@ -2,18 +2,15 @@
 
 namespace App\Models;
 
+use App\Models\Comment;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Comment;
+
+
 
 class Article extends Model
 {
     use HasFactory;
-
-    public function comments()
-    {
-        return $this->hasMany(Comment::class);
-    }
 
     /**
      * The table associated with the model.
@@ -22,10 +19,36 @@ class Article extends Model
      */
     protected $table = 'articles';
 
-    //By default, Eloquent expects created_at and updated_at columns to exist on your model's corresponding database table. to avoid these columns to be automatically managed by Eloquent,
-
     public $timestamps = false;
 
+    protected $with = ['category','user'];
+
     protected $fillable = ['title','content','category'];
+
+    public function comments(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    public function category(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function scopeFilter($query){
+
+        if(request('search')){
+
+            $query
+                ->where('title','like','%'.request('search').'%');
+        }
+    }
+
+
 
 }
