@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\SessionController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Article;
 use App\Models\Category;
@@ -26,4 +28,6 @@ Route::get('categories/{category:name}', function (Category $category) {
     return view('articles',['articles' => $category->articles()->paginate(2)]);
 });
 
-
+Route::get('register',[RegisterController::class,'create'])->middleware('guest');
+Route::post('register',[RegisterController::class,'store']);
+Route::get('logout',[SessionController::class,'destroy']);

@@ -8,6 +8,23 @@
 
     <h1>Articles List</h1>
 
+    <div class ="mt-8 md:mt-0">
+        @auth
+
+            <span class="text-xs font-bold uppercase">Welcome, {{ auth()->user()->name }}!</span>
+
+            <form mehod="GET" action="/logout">
+                @csrf
+
+                <button type="submit">Logout</button>
+            </form>
+        @else
+
+            <a href="/register" class="text-xs font-bold uppercase">Register</a>
+        @endauth
+    </div>
+
+
     @foreach ($articles as $article)
 
         <article>
